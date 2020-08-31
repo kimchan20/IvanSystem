@@ -1,0 +1,36 @@
+﻿@model MVC5.Models.AccountModel.LoginModel
+
+@{
+	ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<a href="@Url.Action("Register")">Register</a>
+@using (Html.BeginForm("login", "Account", new { ReturnUrl = ViewBag.returnUri }, FormMethod.Post, new { role = "form" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(x => x.userName)
+			<div class="col-md-offset-2 col-md-10">
+				@Html.TextBoxFor(x => x.userName, "", new { @class = "form-control" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(x => x.passWorld)
+			<div class="col-md-offset-2 col-md-10">
+				@Html.PasswordFor(x => x.passWorld, new { @class = "form-control" })
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+

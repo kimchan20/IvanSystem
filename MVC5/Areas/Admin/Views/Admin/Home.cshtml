@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+
+
+
+@using (Html.BeginForm("home","admin",FormMethod.Post,new{role="form"}))
+{
+
+    <input type="text" id="name" name="name"/>
+    <input type="submit" value="submit"/>
+}
