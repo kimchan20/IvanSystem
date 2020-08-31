@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using MVC5.Models;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace MVC5.Class
         private Api apilist = new Api();
         public string Insert(AccountModel.RegisterModel accountModel)
         {
-            Uri uri = new Uri(string.Format(apilist.appDict.Keys("insert")));
+            Uri uri = new Uri(string.Format(apilist.appDict["insert"]));
             string jsonData = JsonConvert.SerializeObject(accountModel);
             string remBraket = jsonData.Replace('[', ' ');
 
@@ -31,7 +32,43 @@ namespace MVC5.Class
 
         public string loginUser(AccountModel.LoginModel loginModel)
         {
-            Uri uri = new Uri(string.Format(apilist.Apilist[1] + loginModel.userName + "/" + loginModel.passWorld));
+            Uri uri = new Uri(string.Format(apilist.appDict["login"] + loginModel.userName + "/" + loginModel.passWorld));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+
+            request.Method = "GET";
+            request.ProtocolVersion = HttpVersion.Version11;
+            request.ContentType = "application/json";
+            request.ServerCertificateValidationCallback = delegate { return true; };
+
+            using (var rsps = new StreamReader(request.GetResponse().GetResponseStream()))
+            {
+                return rsps.ReadToEnd();
+            }
+        }
+
+
+        public async Task<string> userlist()
+        {
+            List<AccountModel.getUser> getUser = new List<AccountModel.getUser>();
+
+            Uri uri = new Uri(string.Format(apilist.appDict["getuser"]));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+
+            request.Method = "GET";
+            request.ProtocolVersion = HttpVersion.Version11;
+            request.ContentType = "application/json";
+            request.ServerCertificateValidationCallback = delegate { return true; };
+
+            using (var rsps = new StreamReader(request.GetResponse().GetResponseStream()))
+            {
+                return rsps.ReadToEnd();
+            }
+        }
+
+
+        public async Task<string> getUser(int id)
+        {
+            Uri uri = new Uri(string.Format(apilist.appDict["getuserDetails"] + id));
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
 
             request.Method = "GET";

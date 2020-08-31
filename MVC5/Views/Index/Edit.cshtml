@@ -1,0 +1,37 @@
+﻿@model MVC5.Models.AccountModel.getUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>AccountModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+	        <div class="col-md-offset-2 col-md-10">
+		        @Model.id
+	        </div>
+        </div>
+        <div class="form-group">
+	        <div class="col-md-offset-2 col-md-10">
+		        <input type="text" value="@Model.username" name="username"/>   
+	        </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "_userList")
+</div>

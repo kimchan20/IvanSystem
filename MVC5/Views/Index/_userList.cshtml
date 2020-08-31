@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MVC5.Models.AccountModel.getUser>
+
+@{
+    ViewBag.Title = "_userList";
+}
+
+<table class="table">
+	<tr>
+		<th>Id</th>
+        <th>Username</th>
+		<th>Password</th>
+	</tr>
+
+@foreach (var item in Model) {
+	<tr>
+		<td>@item.id</td>
+		<td>@item.username</td>
+		<td>@item.password</td>
+		<td>
+			@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+			@Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+			@Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+		</td>
+	</tr>
+}
+
+</table>

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Policy;
+using System.Web.Mvc;
 using System.Web.Routing;
 using MVC5.Controllers;
 
@@ -12,6 +13,12 @@ namespace MVC5
             string[] namespaceAccount = new[] {typeof(AccountController).Namespace};
             string[] namespaceIndex = new[] {typeof(IndexController).Namespace};
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            //routes.MapRoute(
+            //    name: "others",
+            //    url:"{action}",
+            //    defaults: new {controller = "Index", action = "Index" , id = UrlParameter.Optional},namespaceIndex);
+
 
 
             routes.MapRoute("login", "", new {controller = "Account",action="Login"  },namespaceAccount);

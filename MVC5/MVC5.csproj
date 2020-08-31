@@ -150,6 +150,7 @@
     <Compile Include="Class\UserApi.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="CustomClass\Auth.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +175,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Index\Home.cshtml" />
+    <Content Include="Views\Index\_userList.cshtml" />
+    <Content Include="Views\Index\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
