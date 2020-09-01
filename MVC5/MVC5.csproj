@@ -155,6 +155,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\OtherModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,8 @@
     <Content Include="Views\Index\Home.cshtml" />
     <Content Include="Views\Index\_userList.cshtml" />
     <Content Include="Views\Index\Edit.cshtml" />
+    <Content Include="Views\Index\MultipleSample.cshtml" />
+    <Content Include="Views\Index\_multiple.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

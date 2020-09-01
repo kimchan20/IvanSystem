@@ -7,30 +7,64 @@
 	<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 	<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+	<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+					<span class="icon-bar">1</span>
+					<span class="icon-bar">2</span>
 					<span class="icon-bar"></span>
 				</button>
 				@Html.ActionLink("Application name", "Home", "Index", new { area = "" }, new { @class = "navbar-brand" })
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li class="active"><a href="/home">Home</a></li>
+						<li>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">User<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li>@Html.ActionLink("User List", "_userList", new {})</li>
+							</ul>
+						</li>
+						<li>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Multiple Data<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li>@Html.ActionLink("Multiple Insert to model", "multiplesample", new {})</li>
+							</ul>
+						</li>
+					}
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					@if (!User.Identity.IsAuthenticated)
+					{
+
+					<li>@Html.ActionLink("Sign-up", "register", "Account")</li>
+					<li>@Html.ActionLink("Sign-in", "Login", "Account")</li>
+					}
+
+					else
+					{
+						<li>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Hello , @User.Identity.Name<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li>@Html.ActionLink("Logout", "logout", "Account")</li>
+							</ul>
+						</li>
+					}
+
+					
 				</ul>
 			</div>
 		</div>
 	</div>
-	@if (User.Identity.IsAuthenticated)
-	{
-		<h6>Hello , @User.Identity.Name</h6>
-		<br />
-		@Html.ActionLink("Logout", "logout", "Account")
-	}
 
 	@ViewBag.loginMessage
 	<div class="container body-content">
@@ -41,7 +75,6 @@
 		</footer>
 	</div>
 
-	<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-	<script src="~/Scripts/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,68 @@
+﻿@model MVC5.Models.OtherModel.Multiplemodel
+@{
+	Layout = null;
+}
+@using (Html.BeginForm())
+{
+	<div class="form-horizontal">
+		<hr />
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				@Html.TextBoxFor(x => x.username, new { Placeholder = "Enter Username" })
+			</div>
+		</div>
+		<a href="#add" id="addtxt" class="btn btn-sm btn-success">Add TextBox</a>
+		@if (Model.toliststr != null)
+		{
+
+			foreach (var item in Model.toliststr)
+			{
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<input type="text" name="toliststr" id="username" value="@item" />
+						&nbsp <a  id="deletetxt" onclick="funtdele(this)" class="btn btn-sm btn-danger">x</a>
+					</div>
+				</div>
+
+			}
+			<div id="appendtxt"></div>
+		}
+		else
+		{
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="text" name="toliststr" id="username" value="" />
+				</div>
+			</div>
+			<div id="appendtxt"></div>
+		}
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<script>
+
+	var txtbox = '<div class="form-group">' +
+		'<div class="col-md-offset-2 col-md-10">' +
+		'<input type="text" name="toliststr" id="username" value="" required/>' +
+		'&nbsp <a id="deletetxt" onclick="funtdele(this)" class="btn btn-sm btn-danger">x</a>' +
+		'</div>' +
+		'</div>';
+
+	$(function() {
+		$('#addtxt').click(function() {
+		
+			$('#appendtxt').append(txtbox);
+		});
+	});
+
+	function funtdele(e) {
+		$(e).parents('div.form-group').remove()
+	}
+</script>
+

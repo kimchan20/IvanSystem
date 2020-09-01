@@ -27,26 +27,35 @@ namespace MVC5.Controllers
             return RedirectToRoute("login");
         }
 
+        [HandleError(ExceptionType = typeof(HttpAntiForgeryException), View = "login")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult login(AccountModel.LoginModel login,string ReturnUrl)
+        public ActionResult login(AccountModel.LoginModel login, string ReturnUrl)
         {
-            
+
             ViewBag.returnUri = ReturnUrl == null ? "" : ReturnUrl;
             if (!ModelState.IsValid)
             {
                 return View(login);
             }
 
+            if (User.Identity.IsAuthenticated)
+            {
+                if (ReturnUrl != null)
+                {
+                    return Redirect(ReturnUrl);
+                }
+            }
+
             UserApi userApi = new UserApi();
             var res = userApi.loginUser(login);
-            if (userApi.loginUser(login).Contains("True"))
+            if (res.Contains("True"))
             {
-                FormsAuthentication.SetAuthCookie(login.userName,false);
+                FormsAuthentication.SetAuthCookie(login.userName, false);
                 RouteCollection collection = new RouteCollection();
                 var completeRoute = this.ControllerContext.RouteData.Route;
-            
+
                 if (ReturnUrl != null)
                 {
                     var ss = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
@@ -54,11 +63,15 @@ namespace MVC5.Controllers
                 }
 
                 ViewBag.loginMessage = "Login Success";
-                return RedirectToAction("Home","Index");
+                return RedirectToAction("Home", "Index");
+            }
+            else if (res.Contains("Error"))
+            {
+                ModelState.AddModelError("username", "Error : " + res);
             }
             else
             {
-                ModelState.AddModelError("username","Username and Password didnt match.");
+                ModelState.AddModelError("username", "Username and Password didnt match.");
             }
 
             return View();
@@ -81,7 +94,7 @@ namespace MVC5.Controllers
                 return View(registerModel);
             }
             UserApi userApi = new UserApi();
-            
+
             //hash password
             AccountModel.RegisterModel sd = new AccountModel.RegisterModel();
             ViewBag.hasPassword = sd.setPassword(registerModel.PassWord);
@@ -90,8 +103,8 @@ namespace MVC5.Controllers
             //model for user
             registerModel = new AccountModel.RegisterModel()
             {
-                UserName =  registerModel.UserName,
-                PassWord =  sd.setPassword(registerModel.PassWord).TrimEnd(),
+                UserName = registerModel.UserName,
+                PassWord = sd.setPassword(registerModel.PassWord).TrimEnd(),
             };
 
             //getting api result

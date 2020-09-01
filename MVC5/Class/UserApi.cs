@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -32,17 +33,25 @@ namespace MVC5.Class
 
         public string loginUser(AccountModel.LoginModel loginModel)
         {
-            Uri uri = new Uri(string.Format(apilist.appDict["login"] + loginModel.userName + "/" + loginModel.passWorld));
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-
-            request.Method = "GET";
-            request.ProtocolVersion = HttpVersion.Version11;
-            request.ContentType = "application/json";
-            request.ServerCertificateValidationCallback = delegate { return true; };
-
-            using (var rsps = new StreamReader(request.GetResponse().GetResponseStream()))
+            try
             {
-                return rsps.ReadToEnd();
+                Uri uri = new Uri(string.Format(apilist.appDict["login"] + loginModel.userName + "/" +
+                                                loginModel.passWorld));
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(uri);
+
+                request.Method = "GET";
+                request.ProtocolVersion = HttpVersion.Version11;
+                request.ContentType = "application/json";
+                request.ServerCertificateValidationCallback = delegate { return true; };
+
+                using (var rsps = new StreamReader(request.GetResponse().GetResponseStream()))
+                {
+                    return rsps.ReadToEnd();
+                }
+            }
+            catch (Exception ee)
+            {
+                return "Error : " + ee.Message;
             }
         }
 

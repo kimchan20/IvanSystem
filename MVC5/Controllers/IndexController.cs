@@ -66,5 +66,16 @@ namespace MVC5.Controllers
         {
             return View(getusermodel);
         }
+
+
+        public ActionResult MultipleSample()
+        {
+            return View();
+        }
+
+        public ActionResult _multiple(OtherModel.Multiplemodel model )
+        {
+            return View(model);
+        }
     }
 }

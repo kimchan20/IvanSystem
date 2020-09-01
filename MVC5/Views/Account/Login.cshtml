@@ -4,13 +4,11 @@
 	ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
 
-<a href="@Url.Action("Register")">Register</a>
+<h2>Sign Up</h2>
 @using (Html.BeginForm("login", "Account", new { ReturnUrl = ViewBag.returnUri }, FormMethod.Post, new { role = "form" }))
 {
 	@Html.AntiForgeryToken()
-
 	<div class="form-horizontal">
 		<hr />
 		@Html.ValidationSummary(false, "", new { @class = "text-danger" })
