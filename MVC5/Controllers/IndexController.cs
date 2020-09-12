@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using MVC5.Class;
+using MVC5.CustomClass;
 using MVC5.Models;
 using Newtonsoft.Json;
 
 namespace MVC5.Controllers
 {
 
-    [Authorize()]
+    [Authorize]
     public class IndexController : Controller
     {
 

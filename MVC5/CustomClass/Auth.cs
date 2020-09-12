@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
+using System.Web.Routing;
 
 namespace MVC5.CustomClass 
 {
@@ -34,12 +35,32 @@ namespace MVC5.CustomClass
         {
             if (filterContext.Result == null || filterContext.Result is HttpUnauthorizedResult)
             {
-                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Account",
                     action = "Login",
                 }));
             }
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+            if (session != null)
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "Controller", "Index" }, { "Action", "Login" } });
+            }
+        }
+
+
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            filterContext.HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            filterContext.HttpContext.Response.Cache.SetValidUntilExpires(false);
+            filterContext.HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            filterContext.HttpContext.Response.Cache.SetNoStore();
+
+            base.OnResultExecuting(filterContext);
         }
     }
 }

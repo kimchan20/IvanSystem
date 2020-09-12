@@ -56,13 +56,13 @@
 
 	$(function() {
 		$('#addtxt').click(function() {
-		
+			alert($('#username').val());
 			$('#appendtxt').append(txtbox);
 		});
 	});
 
 	function funtdele(e) {
-		$(e).parents('div.form-group').remove()
+		$(e).parents('div.form-group').remove();
 	}
 </script>
 
