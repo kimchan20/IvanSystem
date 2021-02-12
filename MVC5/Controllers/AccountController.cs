@@ -1,18 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVC5.Class;
 using MVC5.Models;
+using MVC5.Repository;
+using Xunit.Sdk;
 
 namespace MVC5.Controllers
 {
+    [TestClass]
     public class AccountController : Controller
     {
+
+        private readonly IClassRepository2 _classREpository;
+
+        public AccountController() { }
+        public AccountController(IClassRepository2 classRepository)
+        {
+            _classREpository = classRepository;
+        }
+
+        [HttpGet]
+        [Route("test/{hello?}")]
+        public ActionResult test(string hello)
+        {
+            var res = _classREpository.tostring(hello);
+            return View(res);
+        }
 
         public ActionResult login(string ReturnUrl)
         {
@@ -49,25 +70,37 @@ namespace MVC5.Controllers
             }
 
             UserApi userApi = new UserApi();
-            var res = userApi.loginUser(login);
-            if (res.Contains("True"))
+            //      var res = userApi.loginUser(login);
+            if (true)
             {
                 FormsAuthentication.SetAuthCookie(login.userName, false);
                 RouteCollection collection = new RouteCollection();
                 var completeRoute = this.ControllerContext.RouteData.Route;
 
+                test();
                 if (ReturnUrl != null)
                 {
-                    var ss = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
-                    return Redirect(ReturnUrl);
+                    var islocal = Url.IsLocalUrl(ReturnUrl);
+                    if (Url.IsLocalUrl(ReturnUrl))
+                    {
+
+                        var ss = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+                        return Redirect(ReturnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("username", "You are not allow to do that!");
+                        return RedirectToAction("Home", "Index");
+                    }
+
                 }
 
                 ViewBag.loginMessage = "Login Success";
                 return RedirectToAction("Home", "Index");
             }
-            else if (res.Contains("Error"))
+            else if ("Error".Contains("Error"))
             {
-                ModelState.AddModelError("username", "Error : " + res);
+                ModelState.AddModelError("username", "Error : " + "");
             }
             else
             {
@@ -75,6 +108,21 @@ namespace MVC5.Controllers
             }
 
             return View();
+        }
+
+        void test()
+        {
+            Assembly asm = Assembly.GetAssembly(typeof(MVC5.MvcApplication));
+
+            var controlleractionlist = asm.GetTypes()
+                    .Where(type => typeof(System.Web.Mvc.Controller).IsAssignableFrom(type))
+                    .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+                    .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+                    .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+                    .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+
+          
+          
         }
 
         [AllowAnonymous]

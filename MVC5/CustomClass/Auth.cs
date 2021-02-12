@@ -43,6 +43,7 @@ namespace MVC5.CustomClass
             }
         }
 
+        //session is empty
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpSessionStateBase session = filterContext.HttpContext.Session;
@@ -52,7 +53,10 @@ namespace MVC5.CustomClass
             }
         }
 
-
+        /// <summary>
+        /// /no cache
+        /// </summary>
+        /// <param name="filterContext"></param>
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             filterContext.HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));

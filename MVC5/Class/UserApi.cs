@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using MVC5.Models;
+using MVC5.Repository;
 using Newtonsoft.Json;
 
 namespace MVC5.Class
 {
-    public class UserApi
+    public class UserApi : IClassRepository2
     {
         private Api apilist = new Api();
         public string Insert(AccountModel.RegisterModel accountModel)
@@ -89,6 +90,11 @@ namespace MVC5.Class
             {
                 return rsps.ReadToEnd();
             }
+        }
+
+        public Task<string> tostring(string data)
+        {
+            return  Task.FromResult(string.Empty);
         }
     }
 }

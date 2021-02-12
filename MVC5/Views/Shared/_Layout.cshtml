@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model MVC5.Models.AccountModel
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -30,24 +31,24 @@
 						<li>
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">User<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li>@Html.ActionLink("User List", "_userList", new {})</li>
+								<li>@Html.ActionLink("User List", "_userList", new { })</li>
 							</ul>
 						</li>
 						<li>
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Multiple Data<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li>@Html.ActionLink("Multiple Insert to model", "multiplesample", new {})</li>
+								<li>@Html.ActionLink("Multiple Insert to model", "multiplesample", new { })</li>
 							</ul>
 						</li>
 					}
-					
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (!User.Identity.IsAuthenticated)
 					{
 
-					<li>@Html.ActionLink("Sign-up", "register", "Account")</li>
-					<li>@Html.ActionLink("Sign-in", "Login", "Account")</li>
+						<li>@Html.ActionLink("Sign-up", "register", "Account")</li>
+						<li>@Html.ActionLink("Sign-in", "Login", "Account")</li>
 					}
 
 					else
@@ -60,20 +61,21 @@
 						</li>
 					}
 
-					
+
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	@ViewBag.loginMessage
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-		</footer>
-	</div>
+<div class="container body-content">
+	@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+	@RenderBody()
+	<hr />
+	<footer>
+		<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+	</footer>
+</div>
 
 
 </body>

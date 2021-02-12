@@ -5,9 +5,16 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC5", "MVC5\MVC5.csproj", "{975DDC38-870E-490B-B42E-FFD80E8FBD68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashPassword", "HashPassword\HashPassword.csproj", "{1EEB4C2F-B188-4387-BCAE-7CAC910DD5B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashPassword", "HashPassword\HashPassword.csproj", "{1EEB4C2F-B188-4387-BCAE-7CAC910DD5B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{3D83CCDD-15C5-4E6C-91A9-5EB01B81809D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6EBE04B7-5AF1-434B-A3F8-94B68C074DBF}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F30458F0-AFEA-4DD1-92BE-B936E19F0363}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication4", "WebApplication4\WebApplication4.csproj", "{6AD756C2-B3B1-4B8F-8498-8899B09BA963}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +30,14 @@ Global
 		{1EEB4C2F-B188-4387-BCAE-7CAC910DD5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EEB4C2F-B188-4387-BCAE-7CAC910DD5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EEB4C2F-B188-4387-BCAE-7CAC910DD5B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D83CCDD-15C5-4E6C-91A9-5EB01B81809D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D83CCDD-15C5-4E6C-91A9-5EB01B81809D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D83CCDD-15C5-4E6C-91A9-5EB01B81809D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D83CCDD-15C5-4E6C-91A9-5EB01B81809D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F30458F0-AFEA-4DD1-92BE-B936E19F0363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F30458F0-AFEA-4DD1-92BE-B936E19F0363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F30458F0-AFEA-4DD1-92BE-B936E19F0363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F30458F0-AFEA-4DD1-92BE-B936E19F0363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD756C2-B3B1-4B8F-8498-8899B09BA963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD756C2-B3B1-4B8F-8498-8899B09BA963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD756C2-B3B1-4B8F-8498-8899B09BA963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD756C2-B3B1-4B8F-8498-8899B09BA963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Class;
 using WebApplication3.Models;
-z`
+
 namespace WebApplication3.Controllers
 {
 	[ApiController]
@@ -17,12 +17,13 @@ namespace WebApplication3.Controllers
 		[HttpGet]
 		public ActionResult <IEnumerable<indexModel>> GetResult()
 		{
+			return Ok();
 		}
 
 		[HttpGet]
 		public ActionResult <indexModel> getindexresult(int id)
 		{
-
+			return BadRequest();
 		}
 	}
 }
